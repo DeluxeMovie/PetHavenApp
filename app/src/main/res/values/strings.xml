@@ -1,3 +1,30 @@
 <resources>
-    <string name="app_name">PetHavenApp</string>
+    <string name="app_name">PetHaven</string>
+
+    <string name="welcome_logo_description">Logo de PetHaven</string>
+    <string name="welcome_tagline">Cuidamos de quienes amas</string>
+    <string name="welcome_description">Hospitalización canina y felina con amor de hogar, porque son familia.</string>
+    <string name="welcome_get_started">Comenzar</string>
+
+    <string name="login_title">Bienvenido de nuevo</string>
+    <string name="login_subtitle">Inicia sesión para seguir el cuidado de tu mascota.</string>
+    <string name="login_email_label">Correo electrónico</string>
+    <string name="login_password_label">Contraseña</string>
+    <string name="login_show_password">Mostrar contraseña</string>
+    <string name="login_hide_password">Ocultar contraseña</string>
+    <string name="login_button">Iniciar sesión</string>
+    <string name="login_loading">Iniciando sesión…</string>
+    <string name="login_error_email_empty">Ingresa tu correo electrónico.</string>
+    <string name="login_error_email_invalid">Ingresa un correo válido, por ejemplo nombre@correo.com.</string>
+    <string name="login_error_password_empty">Ingresa tu contraseña.</string>
+    <string name="auth_error_invalid_credentials">El correo o la contraseña no son correctos.</string>
+    <string name="auth_error_network">No pudimos conectarnos. Revisa tu conexión e inténtalo de nuevo.</string>
+    <string name="auth_error_unknown">Algo salió mal. Inténtalo de nuevo en unos minutos.</string>
+
+    <string name="feature_love_title">Cuidado con amor</string>
+    <string name="feature_love_description">Tratamos a cada mascota como parte de nuestra familia.</string>
+    <string name="feature_trust_title">Confianza y profesionalismo</string>
+    <string name="feature_trust_description">Equipo veterinario calificado y comprometido.</string>
+    <string name="feature_support_title">Acompañamiento constante</string>
+    <string name="feature_support_description">Estamos contigo en cada paso del camino.</string>
 </resources>
