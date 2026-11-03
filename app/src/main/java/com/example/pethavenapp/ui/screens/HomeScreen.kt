@@ -3,19 +3,18 @@ package com.example.pethavenapp.ui.screens
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -28,27 +27,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Pets
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import coil.compose.AsyncImage
 import com.example.pethavenapp.R
 import com.example.pethavenapp.data.model.Pet
 import com.example.pethavenapp.data.model.Species
 import com.example.pethavenapp.data.model.User
+import com.example.pethavenapp.ui.components.PetPhoto
+import com.example.pethavenapp.ui.components.StatusChip
 import com.example.pethavenapp.ui.theme.PetHavenAppTheme
 import com.example.pethavenapp.ui.theme.brandBackground
 import com.example.pethavenapp.util.ProvideScreenMetrics
@@ -58,17 +53,25 @@ import com.example.pethavenapp.viewmodels.HomeViewModel
 @Composable
 fun HomeScreen(
     owner: User,
+    onPetClick: (Long) -> Unit,
     onLogout: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = viewModel(key = "home-${owner.id}", factory = HomeViewModel.factory(owner))
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    HomeContent(uiState, onRetry = viewModel::loadPets, onLogout = onLogout, modifier = modifier)
+    HomeContent(
+        uiState = uiState,
+        onPetClick = onPetClick,
+        onRetry = viewModel::loadPets,
+        onLogout = onLogout,
+        modifier = modifier
+    )
 }
 
 @Composable
 private fun HomeContent(
     uiState: HomeUiState,
+    onPetClick: (Long) -> Unit,
     onRetry: () -> Unit,
     onLogout: () -> Unit,
     modifier: Modifier = Modifier
@@ -91,7 +94,7 @@ private fun HomeContent(
                             color = MaterialTheme.colorScheme.error,
                             textAlign = TextAlign.Center
                         )
-                        Spacer(Modifier.height(16.dp))
+                        Spacer(Modifier.height(metrics.unit(0.04f)))
                         Button(onClick = onRetry) { Text(stringResource(R.string.home_retry)) }
                     }
                     uiState.pets.isEmpty() -> CenteredMessage {
@@ -102,11 +105,15 @@ private fun HomeContent(
                             textAlign = TextAlign.Center
                         )
                     }
-                    else -> LazyColumn(
-                        contentPadding = PaddingValues(vertical = 12.dp),
-                        verticalArrangement = Arrangement.spacedBy(12.dp)
+                    else -> LazyVerticalGrid(
+                        columns = GridCells.Adaptive(minSize = 160.dp),
+                        contentPadding = PaddingValues(vertical = metrics.unit(0.03f)),
+                        horizontalArrangement = Arrangement.spacedBy(metrics.unit(0.035f)),
+                        verticalArrangement = Arrangement.spacedBy(metrics.unit(0.035f))
                     ) {
-                        items(uiState.pets, key = { it.id }) { PetCard(it) }
+                        items(uiState.pets, key = { it.id }) { pet ->
+                            PetCard(pet, onClick = { onPetClick(pet.id) })
+                        }
                     }
                 }
             }
@@ -149,73 +156,79 @@ private fun CenteredMessage(content: @Composable () -> Unit) {
 }
 
 @Composable
-private fun PetCard(pet: Pet, modifier: Modifier = Modifier) {
+private fun PetCard(pet: Pet, onClick: () -> Unit, modifier: Modifier = Modifier) {
     Card(
+        onClick = onClick,
         modifier = modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerLow),
-        border = BorderStroke(Dp.Hairline, MaterialTheme.colorScheme.outlineVariant)
+        border = BorderStroke(Dp.Hairline, MaterialTheme.colorScheme.outlineVariant),
+        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
     ) {
-        Row(
-            modifier = Modifier.padding(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            verticalAlignment = Alignment.CenterVertically
+        PetPhoto(
+            url = pet.photoUrl,
+            contentDescription = stringResource(R.string.pet_photo_description, pet.name),
+            modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(1.15f)
+        )
+        Column(
+            modifier = Modifier.padding(12.dp),
+            verticalArrangement = Arrangement.spacedBy(2.dp)
         ) {
-            val placeholder = rememberVectorPainter(Icons.Filled.Pets)
-            AsyncImage(
-                model = pet.photoUrl,
-                contentDescription = stringResource(R.string.home_pet_photo, pet.name),
-                placeholder = placeholder,
-                error = placeholder,
-                fallback = placeholder,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .size(72.dp)
-                    .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.surfaceVariant)
+            Text(
+                text = pet.name,
+                style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.tertiary,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
             )
-            Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
-                Text(pet.name, style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.tertiary)
-                Text(
-                    text = stringResource(
-                        R.string.home_pet_summary,
-                        stringResource(if (pet.species == Species.Cat) R.string.species_cat else R.string.species_dog),
-                        pet.breed
-                    ),
-                    style = MaterialTheme.typography.bodyMedium
-                )
-                Text(
-                    text = pluralStringResource(R.plurals.home_pet_age, pet.age, pet.age) +
-                        " · " + stringResource(R.string.home_pet_weight, pet.weight),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                pet.disease?.let {
-                    Text(
-                        text = stringResource(R.string.home_pet_disease, it),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
-                }
-                Text(
-                    text = stringResource(if (pet.inClinic) R.string.home_pet_in_clinic else R.string.home_pet_at_home),
-                    style = MaterialTheme.typography.labelMedium,
-                    color = if (pet.inClinic) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            }
+            Text(
+                text = stringResource(R.string.pet_species_breed, speciesLabel(pet.species), pet.breed),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis
+            )
+            Spacer(Modifier.height(6.dp))
+            PetStatusChip(pet.inClinic)
         }
+    }
+}
+
+@Composable
+fun speciesLabel(species: Species): String =
+    stringResource(if (species == Species.Cat) R.string.species_cat else R.string.species_dog)
+
+@Composable
+fun PetStatusChip(inClinic: Boolean, modifier: Modifier = Modifier) {
+    if (inClinic) {
+        StatusChip(
+            text = stringResource(R.string.pet_in_clinic),
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = MaterialTheme.colorScheme.onPrimary,
+            modifier = modifier
+        )
+    } else {
+        StatusChip(
+            text = stringResource(R.string.pet_at_home),
+            containerColor = MaterialTheme.colorScheme.secondaryContainer,
+            contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+            modifier = modifier
+        )
     }
 }
 
 private val previewPets = listOf(
     Pet(1, "Buddy", Species.Dog, "Golden Retriever", 3, 15.0, "Otitis externa", null, true),
-    Pet(2, "Misu", Species.Cat, "Siamés", 1, 4.2, null, null, false)
+    Pet(2, "Misu", Species.Cat, "Siamés", 1, 4.2, null, null, false),
+    Pet(3, "Canela", Species.Dog, "Beagle", 5, 12.4, null, null, false)
 )
 
 @Preview(name = "Con mascotas", device = "spec:width=411dp,height=891dp", locale = "es")
 @Composable
 private fun HomePreview() {
     PetHavenAppTheme {
-        HomeContent(HomeUiState(ownerName = "John Doe", pets = previewPets, isLoading = false), {}, {})
+        HomeContent(HomeUiState(ownerName = "John Doe", pets = previewPets, isLoading = false), {}, {}, {})
     }
 }
 
@@ -224,7 +237,7 @@ private fun HomePreview() {
 private fun HomeErrorPreview() {
     PetHavenAppTheme {
         HomeContent(
-            HomeUiState(ownerName = "John Doe", isLoading = false, error = R.string.auth_error_network), {}, {}
+            HomeUiState(ownerName = "John Doe", isLoading = false, error = R.string.auth_error_network), {}, {}, {}
         )
     }
 }

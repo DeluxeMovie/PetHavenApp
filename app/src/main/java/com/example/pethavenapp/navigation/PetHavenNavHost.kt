@@ -4,6 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
+import com.example.pethavenapp.ui.screens.PetDetailScreen
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -45,6 +48,7 @@ fun PetHavenNavHost(
             } else {
                 HomeScreen(
                     owner = session.user,
+                    onPetClick = { petId -> navController.navigate(Destination.PetDetail.createRoute(petId)) },
                     onLogout = {
                         AppContainer.session = null
                         navController.navigate(Destination.Login.route) {
@@ -53,6 +57,15 @@ fun PetHavenNavHost(
                     }
                 )
             }
+        }
+        composable(
+            route = Destination.PetDetail.route,
+            arguments = listOf(navArgument(Destination.PET_ID_ARG) { type = NavType.LongType })
+        ) { entry ->
+            PetDetailScreen(
+                petId = entry.arguments?.getLong(Destination.PET_ID_ARG) ?: return@composable,
+                onBack = { navController.popBackStack() }
+            )
         }
     }
 }

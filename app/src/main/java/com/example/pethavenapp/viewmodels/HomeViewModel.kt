@@ -32,7 +32,7 @@ class HomeViewModel(
         _uiState.update { it.copy(isLoading = true, error = null) }
         viewModelScope.launch {
             when (val result = repository.getPetsByOwner(owner.id)) {
-                is PetsResult.Success -> _uiState.update { it.copy(isLoading = false, pets = result.pets) }
+                is PetsResult.Success -> _uiState.update { it.copy(isLoading = false, pets = result.data) }
                 is PetsResult.Failure -> _uiState.update { it.copy(isLoading = false, error = result.error.messageRes()) }
             }
         }

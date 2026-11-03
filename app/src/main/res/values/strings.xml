@@ -26,18 +26,35 @@
     <string name="home_logout">Salir</string>
     <string name="home_retry">Reintentar</string>
     <string name="home_empty">Aún no tienes mascotas registradas.</string>
-    <string name="home_pet_photo">Foto de %1$s</string>
-    <string name="home_pet_summary">%1$s · %2$s</string>
-    <string name="home_pet_weight">%1$.1f kg</string>
-    <string name="home_pet_disease">Diagnóstico: %1$s</string>
-    <string name="home_pet_in_clinic">En la veterinaria</string>
-    <string name="home_pet_at_home">En casa</string>
+    <string name="pet_photo_description">Foto de %1$s</string>
+    <string name="pet_species_breed">%1$s · %2$s</string>
+    <string name="pet_weight">%1$.1f kg</string>
+    <string name="pet_in_clinic">En la veterinaria</string>
+    <string name="pet_at_home">En casa</string>
     <string name="species_dog">Perro</string>
     <string name="species_cat">Gato</string>
-    <plurals name="home_pet_age">
+    <plurals name="pet_age">
         <item quantity="one">%d año</item>
         <item quantity="other">%d años</item>
     </plurals>
+
+    <string name="detail_back">Volver</string>
+    <string name="detail_age">Edad</string>
+    <string name="detail_weight">Peso</string>
+    <string name="detail_current_diagnosis">Diagnóstico actual</string>
+    <string name="detail_no_diagnosis">Estable, sin diagnóstico</string>
+    <string name="detail_treatments_title">Tratamientos</string>
+    <string name="detail_no_treatments">Aún no hay tratamientos registrados.</string>
+    <string name="treatment_vet">Atendido por %1$s</string>
+    <string name="treatment_diagnosis">Diagnóstico</string>
+    <string name="treatment_drugs">Medicamentos</string>
+    <string name="treatment_units">×%1$d</string>
+    <string name="treatment_notes">Notas del veterinario</string>
+    <string name="evolution_intake">Ingreso</string>
+    <string name="evolution_stable">Estable</string>
+    <string name="evolution_improving">Mejorando</string>
+    <string name="evolution_worsening">Empeorando</string>
+    <string name="evolution_recovered">Alta</string>
 
     <string name="feature_love_title">Cuidado con amor</string>
     <string name="feature_love_description">Tratamos a cada mascota como parte de nuestra familia.</string>
