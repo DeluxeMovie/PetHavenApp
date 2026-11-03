@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">PetHavenApp</string>
+    <string name="app_name">PetHaven</string>
+
+    <string name="welcome_logo_description">Logo de PetHaven</string>
+    <string name="welcome_tagline">Cuidamos de quienes amas</string>
+    <string name="welcome_description">Hospitalización canina y felina con amor de hogar, porque son familia.</string>
+    <string name="welcome_get_started">Comenzar</string>
+
+    <string name="feature_love_title">Cuidado con amor</string>
+    <string name="feature_love_description">Tratamos a cada mascota como parte de nuestra familia.</string>
+    <string name="feature_trust_title">Confianza y profesionalismo</string>
+    <string name="feature_trust_description">Equipo veterinario calificado y comprometido.</string>
+    <string name="feature_support_title">Acompañamiento constante</string>
+    <string name="feature_support_description">Estamos contigo en cada paso del camino.</string>
 </resources>
