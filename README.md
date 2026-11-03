@@ -31,8 +31,6 @@ La app consume la **misma API REST** que la web, así que los datos siempre coin
 
 ## Equipo
 
-Mismo equipo de la plataforma web:
-
 | Integrante      | GitHub                                              |
 |-----------------|-----------------------------------------------------|
 | Ángel García    | [DeluxeMovie](https://github.com/DeluxeMovie)       |
