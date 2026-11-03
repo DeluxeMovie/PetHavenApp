@@ -21,6 +21,24 @@
     <string name="auth_error_network">No pudimos conectarnos. Revisa tu conexión e inténtalo de nuevo.</string>
     <string name="auth_error_unknown">Algo salió mal. Inténtalo de nuevo en unos minutos.</string>
 
+    <string name="home_greeting">Hola, %1$s</string>
+    <string name="home_subtitle">Estas son tus mascotas.</string>
+    <string name="home_logout">Salir</string>
+    <string name="home_retry">Reintentar</string>
+    <string name="home_empty">Aún no tienes mascotas registradas.</string>
+    <string name="home_pet_photo">Foto de %1$s</string>
+    <string name="home_pet_summary">%1$s · %2$s</string>
+    <string name="home_pet_weight">%1$.1f kg</string>
+    <string name="home_pet_disease">Diagnóstico: %1$s</string>
+    <string name="home_pet_in_clinic">En la veterinaria</string>
+    <string name="home_pet_at_home">En casa</string>
+    <string name="species_dog">Perro</string>
+    <string name="species_cat">Gato</string>
+    <plurals name="home_pet_age">
+        <item quantity="one">%d año</item>
+        <item quantity="other">%d años</item>
+    </plurals>
+
     <string name="feature_love_title">Cuidado con amor</string>
     <string name="feature_love_description">Tratamos a cada mascota como parte de nuestra familia.</string>
     <string name="feature_trust_title">Confianza y profesionalismo</string>

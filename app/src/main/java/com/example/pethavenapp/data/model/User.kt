@@ -1,10 +1,8 @@
 package com.example.pethavenapp.data.model
 
-enum class UserRole { Client, Veterinarian, Admin }
-
+/** Dueño autenticado. La app solo la usan dueños, así que no se guarda el rol. */
 data class User(
-    val id: String,
+    val id: Long,
     val name: String,
-    val email: String,
-    val role: UserRole
+    val email: String
 )
