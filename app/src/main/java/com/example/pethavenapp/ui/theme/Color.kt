@@ -16,3 +16,7 @@ val PetHavenInk = Color(0xFF3A2D22)
 val PetHavenInkSoft = Color(0xFF6B5E50)
 val PetHavenSurface = Color(0xFFFBF8F1)
 val PetHavenOutline = Color(0xFFD9D0BD)
+
+// Rojo ladrillo cálido para errores: se integra con la paleta y mantiene contraste sobre el crema
+val PetHavenError = Color(0xFFA63D2F)
+val PetHavenErrorContainer = Color(0xFFF6DAD5)

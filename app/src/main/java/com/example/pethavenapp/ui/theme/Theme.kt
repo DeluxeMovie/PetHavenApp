@@ -23,6 +23,10 @@ private val PetHavenColorScheme = lightColorScheme(
     surfaceVariant = PetHavenSurface,
     onSurfaceVariant = PetHavenInkSoft,
     surfaceContainerLow = PetHavenSurface,
+    error = PetHavenError,
+    onError = PetHavenCream,
+    errorContainer = PetHavenErrorContainer,
+    onErrorContainer = PetHavenError,
     outline = PetHavenInkSoft,
     outlineVariant = PetHavenOutline
 )

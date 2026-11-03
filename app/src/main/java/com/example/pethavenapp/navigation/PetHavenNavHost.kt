@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.pethavenapp.ui.screens.LoginScreen
 import com.example.pethavenapp.ui.screens.WelcomeScreen
 
 @Composable
@@ -19,8 +20,11 @@ fun PetHavenNavHost(
         modifier = modifier
     ) {
         composable(Destination.Welcome.route) {
-            // El destino de "Comenzar" se conecta cuando exista la pantalla de inicio de sesión.
-            WelcomeScreen(onGetStarted = {})
+            WelcomeScreen(onGetStarted = { navController.navigate(Destination.Login.route) })
+        }
+        composable(Destination.Login.route) {
+            // Al iniciar sesión se navegará al inicio según el rol del usuario (cliente, veterinario o administrador).
+            LoginScreen(onLoginSuccess = {})
         }
     }
 }

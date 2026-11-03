@@ -23,7 +23,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
@@ -39,6 +38,7 @@ import com.example.pethavenapp.ui.components.GetStartedButton
 import com.example.pethavenapp.ui.components.PetHavenLogo
 import com.example.pethavenapp.ui.components.TaglineDivider
 import com.example.pethavenapp.ui.theme.PetHavenAppTheme
+import com.example.pethavenapp.ui.theme.brandBackground
 import com.example.pethavenapp.util.LocalScreenMetrics
 import com.example.pethavenapp.util.ProvideScreenMetrics
 import com.example.pethavenapp.util.ScreenMetrics
@@ -63,7 +63,7 @@ private fun WelcomeContent(
     onGetStarted: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    ProvideScreenMetrics(modifier = modifier.background(welcomeBackground())) { metrics ->
+    ProvideScreenMetrics(modifier = modifier.background(brandBackground())) { metrics ->
         Scaffold(
             containerColor = Color.Transparent,
             bottomBar = { if (!metrics.isWide) GetStartedBar(onGetStarted) }
@@ -76,14 +76,6 @@ private fun WelcomeContent(
         }
     }
 }
-
-@Composable
-private fun welcomeBackground(): Brush = Brush.verticalGradient(
-    colors = listOf(
-        MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.6f),
-        MaterialTheme.colorScheme.background
-    )
-)
 
 /** Pantallas verticales: una columna que se desplaza si el contenido no cabe (textos grandes, ventanas bajas). */
 @Composable
