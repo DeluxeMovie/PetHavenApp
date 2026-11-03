@@ -10,5 +10,5 @@ import io.ktor.client.request.setBody
 class AuthApi(private val client: HttpClient) {
 
     suspend fun login(request: LoginRequest): LoginResponse =
-        client.post("auth/login") { setBody(request) }.body()
+        client.post("auth/owners/login") { setBody(request) }.body()
 }
