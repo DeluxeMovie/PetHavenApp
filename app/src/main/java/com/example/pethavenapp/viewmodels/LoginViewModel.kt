@@ -45,7 +45,8 @@ class LoginViewModel(
         val state = _uiState.value
         if (state.isLoading) return
 
-        val email = state.email.trim()
+        // La API distingue mayúsculas en el correo: se normaliza a minúsculas por si el teclado capitaliza.
+        val email = state.email.trim().lowercase()
         val emailError = when {
             email.isEmpty() -> R.string.login_error_email_empty
             !email.isValidEmail() -> R.string.login_error_email_invalid

@@ -12,7 +12,9 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.pethavenapp.data.AppContainer
 import com.example.pethavenapp.ui.screens.HomeScreen
+import com.example.pethavenapp.ui.components.OwnerSection
 import com.example.pethavenapp.ui.screens.LoginScreen
+import com.example.pethavenapp.ui.screens.ProfileScreen
 import com.example.pethavenapp.ui.screens.WelcomeScreen
 
 @Composable
@@ -49,12 +51,32 @@ fun PetHavenNavHost(
                 HomeScreen(
                     owner = session.user,
                     onPetClick = { petId -> navController.navigate(Destination.PetDetail.createRoute(petId)) },
-                    onLogout = {
-                        AppContainer.session = null
-                        navController.navigate(Destination.Login.route) {
-                            popUpTo(Destination.Home.route) { inclusive = true }
+                    onNavigate = { section ->
+                        if (section == OwnerSection.Profile) {
+                            navController.navigate(Destination.Profile.route) { launchSingleTop = true }
                         }
+                    },
+                    onLogout = { logout(navController) }
+                )
+            }
+        }
+        composable(Destination.Profile.route) {
+            val session = AppContainer.session
+            if (session == null) {
+                LaunchedEffect(Unit) {
+                    navController.navigate(Destination.Login.route) {
+                        popUpTo(Destination.Home.route) { inclusive = true }
                     }
+                }
+            } else {
+                ProfileScreen(
+                    owner = session.user,
+                    onNavigate = { section ->
+                        if (section == OwnerSection.Pets) {
+                            navController.popBackStack(Destination.Home.route, inclusive = false)
+                        }
+                    },
+                    onLogout = { logout(navController) }
                 )
             }
         }
@@ -67,5 +89,13 @@ fun PetHavenNavHost(
                 onBack = { navController.popBackStack() }
             )
         }
+    }
+}
+
+/** Cierra la sesión y vuelve al login sin dejar las pantallas del dueño en el historial. */
+private fun logout(navController: NavHostController) {
+    AppContainer.session = null
+    navController.navigate(Destination.Login.route) {
+        popUpTo(Destination.Home.route) { inclusive = true }
     }
 }

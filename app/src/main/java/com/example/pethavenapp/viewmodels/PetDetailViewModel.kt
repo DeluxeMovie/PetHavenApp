@@ -6,10 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.example.pethavenapp.R
 import com.example.pethavenapp.data.AppContainer
 import com.example.pethavenapp.data.model.PetDetail
-import com.example.pethavenapp.data.model.PetsError
 import com.example.pethavenapp.data.model.PetsResult
 import com.example.pethavenapp.data.repository.PetRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -45,11 +43,6 @@ class PetDetailViewModel(
                 is PetsResult.Failure -> _uiState.update { it.copy(isLoading = false, error = result.error.messageRes()) }
             }
         }
-    }
-
-    private fun PetsError.messageRes(): Int = when (this) {
-        PetsError.Network -> R.string.auth_error_network
-        PetsError.Unknown -> R.string.auth_error_unknown
     }
 
     companion object {

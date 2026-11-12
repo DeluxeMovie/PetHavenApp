@@ -10,4 +10,8 @@ data class HomeUiState(
     val pets: List<Pet> = emptyList(),
     val isLoading: Boolean = true,
     @param:StringRes val error: Int? = null
-)
+) {
+    val totalPets: Int get() = pets.size
+    val inClinicPets: Int get() = pets.count { it.inClinic }
+    val atHomePets: Int get() = totalPets - inClinicPets
+}
