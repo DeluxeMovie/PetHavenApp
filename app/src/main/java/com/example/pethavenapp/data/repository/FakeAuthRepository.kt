@@ -14,7 +14,7 @@ class FakeAuthRepository : AuthRepository {
     override suspend fun login(email: String, password: String): AuthResult {
         delay(SIMULATED_LATENCY_MILLIS)
         return if (user.email.equals(email, ignoreCase = true) && password == "password123") {
-            AuthResult.Success(Session(user))
+            AuthResult.Success(Session(user, token = "fake-token"))
         } else {
             AuthResult.Failure(AuthError.InvalidCredentials)
         }

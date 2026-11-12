@@ -14,7 +14,7 @@ import com.example.pethavenapp.data.repository.PetRepository
 /** Punto único donde se decide qué implementación de datos usa la app. */
 object AppContainer {
 
-    private val httpClient by lazy { createHttpClient() }
+    private val httpClient by lazy { createHttpClient { session?.token } }
 
     val authRepository: AuthRepository by lazy {
         if (NetworkConfig.USE_FAKE_BACKEND) {

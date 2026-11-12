@@ -18,6 +18,7 @@
     <string name="login_error_email_invalid">Ingresa un correo válido, por ejemplo nombre@correo.com.</string>
     <string name="login_error_password_empty">Ingresa tu contraseña.</string>
     <string name="auth_error_invalid_credentials">El correo o la contraseña no son correctos.</string>
+    <string name="auth_error_not_owner">Esta app es solo para dueños de mascotas. Ingresa con una cuenta de dueño.</string>
     <string name="auth_error_network">No pudimos conectarnos. Revisa tu conexión e inténtalo de nuevo.</string>
     <string name="auth_error_unknown">Algo salió mal. Inténtalo de nuevo en unos minutos.</string>
 

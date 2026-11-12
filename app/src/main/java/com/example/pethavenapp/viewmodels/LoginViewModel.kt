@@ -73,6 +73,7 @@ class LoginViewModel(
 
     private fun AuthError.messageRes(): Int = when (this) {
         AuthError.InvalidCredentials -> R.string.auth_error_invalid_credentials
+        AuthError.NotAnOwner -> R.string.auth_error_not_owner
         AuthError.Network -> R.string.auth_error_network
         AuthError.Unknown -> R.string.auth_error_unknown
     }

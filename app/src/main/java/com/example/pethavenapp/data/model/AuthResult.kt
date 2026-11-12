@@ -1,6 +1,6 @@
 package com.example.pethavenapp.data.model
 
-enum class AuthError { InvalidCredentials, Network, Unknown }
+enum class AuthError { InvalidCredentials, NotAnOwner, Network, Unknown }
 
 sealed interface AuthResult {
     data class Success(val session: Session) : AuthResult

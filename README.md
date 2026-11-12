@@ -53,7 +53,7 @@ La app consume la **misma API REST** que la web, así que los datos siempre coin
 
 | Acción | Endpoint |
 |---|---|
-| Iniciar sesión | `POST /api/auth/owners/login` |
+| Iniciar sesión | `POST /api/auth/login` |
 | Mascotas del dueño | `GET /api/owners/{id}/pets` |
 | Datos de una mascota | `GET /api/pets/{id}` |
 | Tratamientos de una mascota | `GET /api/pets/{id}/treatments` |
@@ -61,7 +61,9 @@ La app consume la **misma API REST** que la web, así que los datos siempre coin
 
 El contrato completo de la API está en el repositorio del backend: [`docs/api/API.md`](https://github.com/JoythDev/pethaven/blob/main/docs/api/API.md).
 
-> La API no emite tokens: el login devuelve los datos del dueño (`id`, `name`, `email`, `role`) y la app guarda esa sesión en memoria mientras está abierta.
+> El login es único para todos los roles y devuelve un token JWT junto con el perfil (`token`, `profileId`, `name`, `email`, `role`). La app lo guarda en memoria mientras está abierta y lo envía como `Authorization: Bearer <token>` en cada petición, incluidas las fotos de las mascotas (`PetHavenApplication` configura Coil para eso). La app es solo para dueños: si el rol no es `OWNER`, rechaza el inicio de sesión. El token vence a las 2 horas.
+>
+> Para usar el backend desplegado en Render en vez del local, cambia `NetworkConfig.USE_RENDER_BACKEND` a `true`. El plan gratuito de Render duerme el servicio, así que la primera petición puede tardar cerca de un minuto.
 
 ### Arquitectura
 
@@ -141,7 +143,7 @@ El paso a paso (incluido cómo prepararlo en otro computador y qué hacer si fal
   vuelve a iniciar sesión en la app.
 - **Fotos.** El backend descarga las fotos de un host externo, así que el computador necesita internet
   para que se vean.
-- **Seguridad.** La API actual no usa tokens, por lo que no está pensada para exponerse a internet.
+- **Sesión.** El token vive solo en memoria: al cerrar la app hay que iniciar sesión de nuevo, y a las 2 horas la API lo rechaza (la app aún no vuelve sola a la pantalla de inicio de sesión).
 
 ---
 

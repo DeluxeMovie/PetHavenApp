@@ -12,7 +12,13 @@ import kotlin.coroutines.cancellation.CancellationException
 class KtorAuthRepository(private val api: AuthApi) : AuthRepository {
 
     override suspend fun login(email: String, password: String): AuthResult = try {
-        AuthResult.Success(api.login(LoginRequest(email, password)).toSession())
+        val response = api.login(LoginRequest(email, password))
+        // El login es común a todos los roles; esta app es solo para dueños.
+        if (response.role.equals(OWNER_ROLE, ignoreCase = true)) {
+            AuthResult.Success(response.toSession())
+        } else {
+            AuthResult.Failure(AuthError.NotAnOwner)
+        }
     } catch (e: CancellationException) {
         throw e
     } catch (e: ClientRequestException) {
@@ -22,5 +28,9 @@ class KtorAuthRepository(private val api: AuthApi) : AuthRepository {
         AuthResult.Failure(AuthError.Network)
     } catch (e: Exception) {
         AuthResult.Failure(AuthError.Unknown)
+    }
+
+    private companion object {
+        const val OWNER_ROLE = "OWNER"
     }
 }
