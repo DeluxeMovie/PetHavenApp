@@ -54,6 +54,7 @@ La app consume la **misma API REST** que la web, así que los datos siempre coin
 | Acción | Endpoint |
 |---|---|
 | Iniciar sesión | `POST /api/auth/login` |
+| Perfil del dueño | `GET /api/owners/{id}` |
 | Mascotas del dueño | `GET /api/owners/{id}/pets` |
 | Datos de una mascota | `GET /api/pets/{id}` |
 | Tratamientos de una mascota | `GET /api/pets/{id}/treatments` |

@@ -23,12 +23,30 @@
     <string name="auth_error_unknown">Algo salió mal. Inténtalo de nuevo en unos minutos.</string>
 
     <string name="home_greeting">Hola, %1$s</string>
-    <string name="home_subtitle">Estas son tus mascotas.</string>
-    <string name="home_logout">Salir</string>
+    <string name="home_title">Mis Mascotas</string>
+    <string name="home_subtitle">Consulta el estado de tus mascotas y sus tratamientos en tiempo real.</string>
+    <string name="home_stat_total">registradas</string>
+    <string name="home_stat_in_clinic">hospitalizadas</string>
+    <string name="home_stat_at_home">en casa</string>
+    <string name="nav_open_menu">Abrir menú</string>
+    <string name="nav_account_label">MI CUENTA</string>
+    <string name="nav_my_pets">Mis Mascotas</string>
+    <string name="nav_profile">Mi Perfil</string>
+    <string name="nav_logout">Cerrar sesión</string>
+    <string name="profile_title">Mi Perfil</string>
+    <string name="profile_subtitle">Tus datos de contacto registrados en la clínica.</string>
+    <string name="profile_document">Documento</string>
+    <string name="profile_phone">Teléfono</string>
+    <string name="profile_email">Correo</string>
+    <string name="profile_error">No se pudo cargar tu perfil.</string>
+    <string name="profile_value_loading">…</string>
+    <string name="profile_value_missing">—</string>
     <string name="home_retry">Reintentar</string>
     <string name="home_empty">Aún no tienes mascotas registradas.</string>
     <string name="pet_photo_description">Foto de %1$s</string>
-    <string name="pet_species_breed">%1$s · %2$s</string>
+    <string name="pet_summary">%1$s · %2$s · %3$s</string>
+    <string name="pet_summary_weight">%1$s · %2$s · %3$s · %4$s</string>
+    <string name="pet_view_details">Ver detalles</string>
     <string name="pet_weight">%1$.1f kg</string>
     <string name="pet_in_clinic">En la veterinaria</string>
     <string name="pet_at_home">En casa</string>
@@ -40,16 +58,19 @@
     </plurals>
 
     <string name="detail_back">Volver</string>
-    <string name="detail_age">Edad</string>
     <string name="detail_weight">Peso</string>
-    <string name="detail_current_diagnosis">Diagnóstico actual</string>
-    <string name="detail_no_diagnosis">Estable, sin diagnóstico</string>
-    <string name="detail_treatments_title">Tratamientos</string>
-    <string name="detail_no_treatments">Aún no hay tratamientos registrados.</string>
-    <string name="treatment_vet">Atendido por %1$s</string>
+    <string name="detail_title">Detalle de la mascota</string>
+    <string name="detail_treatments_title">Historial de Tratamientos</string>
+    <string name="detail_no_treatments">Esta mascota aún no tiene tratamientos registrados.</string>
+    <string name="detail_no_drugs">Sin medicamentos registrados.</string>
     <string name="treatment_diagnosis">Diagnóstico</string>
-    <string name="treatment_drugs">Medicamentos</string>
-    <string name="treatment_units">×%1$d</string>
+    <string name="treatment_drug_column">Medicamento</string>
+    <string name="treatment_units_column">Unidades</string>
+    <string name="treatment_discharge_note">Se le dio el alta: se recuperó de %1$s y quedó estable.</string>
+    <plurals name="treatment_drug_count">
+        <item quantity="one">%d medicamento</item>
+        <item quantity="other">%d medicamentos</item>
+    </plurals>
     <string name="treatment_notes">Notas del veterinario</string>
     <string name="evolution_intake">Ingreso</string>
     <string name="evolution_stable">Estable</string>
